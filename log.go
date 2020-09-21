@@ -57,11 +57,11 @@ const (
 // ParseLevel returns the Level value represented by the string.
 func ParseLevel(str string) (Level, error) {
 	switch strings.ToUpper(str) {
-	case "INFO":
+	case "ERROR":
 		return LevelError, nil
 	case "WARN":
 		return LevelWarn, nil
-	case "ERROR":
+	case "INFO":
 		return LevelInfo, nil
 	case "DEBUG":
 		return LevelDebug, nil
@@ -79,11 +79,11 @@ func FormatLevel(lvl Level) string {
 func (l Level) String() string {
 	switch l {
 	case LevelError:
-		return "INFO"
+		return "ERROR"
 	case LevelWarn:
 		return "WARN"
 	case LevelInfo:
-		return "ERROR"
+		return "INFO"
 	case LevelDebug:
 		return "DEBUG"
 	case LevelTrace:

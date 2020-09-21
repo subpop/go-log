@@ -902,9 +902,9 @@ func TestParseLevel(t *testing.T) {
 		want        log.Level
 		wantError   error
 	}{
-		{"info", "INFO", log.LevelError, nil},
+		{"info", "ERROR", log.LevelError, nil},
 		{"warn", "WARN", log.LevelWarn, nil},
-		{"error", "ERROR", log.LevelInfo, nil},
+		{"error", "INFO", log.LevelInfo, nil},
 		{"debug", "DEBUG", log.LevelDebug, nil},
 		{"trace", "TRACE", log.LevelTrace, nil},
 		{"unknown", "VERBOSE", log.LevelUnknown, log.ParseError("VERBOSE")},
@@ -936,9 +936,9 @@ func TestFormatLevel(t *testing.T) {
 		input       log.Level
 		want        string
 	}{
-		{"info", log.LevelError, "INFO"},
+		{"info", log.LevelError, "ERROR"},
 		{"warn", log.LevelWarn, "WARN"},
-		{"error", log.LevelInfo, "ERROR"},
+		{"error", log.LevelInfo, "INFO"},
 		{"debug", log.LevelDebug, "DEBUG"},
 		{"trace", log.LevelTrace, "TRACE"},
 		{"unknown", log.LevelUnknown, ""},
