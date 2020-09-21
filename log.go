@@ -43,11 +43,11 @@ func (e ParseError) Error() string {
 // Level defines various levels of logging output
 type Level int
 
-// LevelInfo is the default level.
+// LevelError is the default level.
 const (
-	LevelInfo Level = iota
+	LevelError Level = iota
 	LevelWarn
-	LevelError
+	LevelInfo
 	LevelDebug
 	LevelTrace
 
@@ -58,11 +58,11 @@ const (
 func ParseLevel(str string) (Level, error) {
 	switch strings.ToUpper(str) {
 	case "INFO":
-		return LevelInfo, nil
+		return LevelError, nil
 	case "WARN":
 		return LevelWarn, nil
 	case "ERROR":
-		return LevelError, nil
+		return LevelInfo, nil
 	case "DEBUG":
 		return LevelDebug, nil
 	case "TRACE":
@@ -78,11 +78,11 @@ func FormatLevel(lvl Level) string {
 
 func (l Level) String() string {
 	switch l {
-	case LevelInfo:
+	case LevelError:
 		return "INFO"
 	case LevelWarn:
 		return "WARN"
-	case LevelError:
+	case LevelInfo:
 		return "ERROR"
 	case LevelDebug:
 		return "DEBUG"
@@ -110,28 +110,28 @@ func New(out io.Writer, prefix string, flag int, level Level) *Logger {
 	}
 }
 
-var std = New(os.Stderr, "", log.LstdFlags, LevelInfo)
+var std = New(os.Stderr, "", log.LstdFlags, LevelError)
 
-// Info prints to the logger if level is at least LevelInfo. Arguments are
+// Error prints to the logger if level is at least LevelError. Arguments are
 // handled in the manner of fmt.Print.
-func (l *Logger) Info(v ...interface{}) {
-	if l.Level >= LevelInfo {
+func (l *Logger) Error(v ...interface{}) {
+	if l.Level >= LevelError {
 		l.Logger.Print(v...)
 	}
 }
 
-// Infof prints to the logger if level is at least LevelInfo. Arguments are
+// Errorf prints to the logger if level is at least LevelError. Arguments are
 // handled in the manner of fmt.Printf.
-func (l *Logger) Infof(format string, v ...interface{}) {
-	if l.Level >= LevelInfo {
+func (l *Logger) Errorf(format string, v ...interface{}) {
+	if l.Level >= LevelError {
 		l.Logger.Printf(format, v...)
 	}
 }
 
-// Infoln prints to the logger if level is at least LevelInfo. Arguments are
+// Errorln prints to the logger if level is at least LevelError. Arguments are
 // handled in the manner of fmt.Println.
-func (l *Logger) Infoln(v ...interface{}) {
-	if l.Level >= LevelInfo {
+func (l *Logger) Errorln(v ...interface{}) {
+	if l.Level >= LevelError {
 		l.Logger.Println(v...)
 	}
 }
@@ -160,26 +160,26 @@ func (l *Logger) Warnln(v ...interface{}) {
 	}
 }
 
-// Error prints to the logger if level is at least LevelError. Arguments are
+// Info prints to the logger if level is at least LevelInfo. Arguments are
 // handled in the manner of fmt.Print.
-func (l *Logger) Error(v ...interface{}) {
-	if l.Level >= LevelError {
+func (l *Logger) Info(v ...interface{}) {
+	if l.Level >= LevelInfo {
 		l.Logger.Print(v...)
 	}
 }
 
-// Errorf prints to the logger if level is at least LevelError. Arguments are
+// Infof prints to the logger if level is at least LevelInfo. Arguments are
 // handled in the manner of fmt.Printf.
-func (l *Logger) Errorf(format string, v ...interface{}) {
-	if l.Level >= LevelError {
+func (l *Logger) Infof(format string, v ...interface{}) {
+	if l.Level >= LevelInfo {
 		l.Logger.Printf(format, v...)
 	}
 }
 
-// Errorln prints to the logger if level is at least LevelError. Arguments are
+// Infoln prints to the logger if level is at least LevelInfo. Arguments are
 // handled in the manner of fmt.Println.
-func (l *Logger) Errorln(v ...interface{}) {
-	if l.Level >= LevelError {
+func (l *Logger) Infoln(v ...interface{}) {
+	if l.Level >= LevelInfo {
 		l.Logger.Println(v...)
 	}
 }
@@ -274,22 +274,22 @@ func SetLevel(l Level) {
 
 // These functions write to the standard logger.
 
-// Info prints to the standard logger if level is at least LevelInfo.
+// Error prints to the standard logger if level is at least LevelError.
 // Arguments are handled in the manner of fmt.Print.
-func Info(v ...interface{}) {
-	std.Info(v...)
+func Error(v ...interface{}) {
+	std.Error(v...)
 }
 
-// Infof prints to the standard logger if level is at least LevelInfo.
+// Errorf prints to the standard logger if level is at least LevelError.
 // Arguments are handled in the manner of fmt.Printf.
-func Infof(format string, v ...interface{}) {
-	std.Infof(format, v...)
+func Errorf(format string, v ...interface{}) {
+	std.Errorf(format, v...)
 }
 
-// Infoln prints to the standard logger if level is at least LevelInfo.
+// Errorln prints to the standard logger if level is at least LevelError.
 // Arguments are handled in the manner of fmt.Println.
-func Infoln(v ...interface{}) {
-	std.Infoln(v...)
+func Errorln(v ...interface{}) {
+	std.Errorln(v...)
 }
 
 // Warn prints to the standard logger if level is at least LevelWarn.
@@ -310,22 +310,22 @@ func Warnln(v ...interface{}) {
 	std.Warnln(v...)
 }
 
-// Error prints to the standard logger if level is at least LevelError.
+// Info prints to the standard logger if level is at least LevelInfo.
 // Arguments are handled in the manner of fmt.Print.
-func Error(v ...interface{}) {
-	std.Error(v...)
+func Info(v ...interface{}) {
+	std.Info(v...)
 }
 
-// Errorf prints to the standard logger if level is at least LevelError.
+// Infof prints to the standard logger if level is at least LevelInfo.
 // Arguments are handled in the manner of fmt.Printf.
-func Errorf(format string, v ...interface{}) {
-	std.Errorf(format, v...)
+func Infof(format string, v ...interface{}) {
+	std.Infof(format, v...)
 }
 
-// Errorln prints to the standard logger if level is at least LevelError.
+// Infoln prints to the standard logger if level is at least LevelInfo.
 // Arguments are handled in the manner of fmt.Println.
-func Errorln(v ...interface{}) {
-	std.Errorln(v...)
+func Infoln(v ...interface{}) {
+	std.Infoln(v...)
 }
 
 // Debug prints to the standard logger if level is at least LevelDebug.

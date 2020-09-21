@@ -24,6 +24,30 @@ func TestLog(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
+				logLvl: log.LevelError,
+				atLvl:  log.LevelError,
+			},
+			want: "visible\n",
+		},
+		{
+			input: struct {
+				msg    string
+				logLvl log.Level
+				atLvl  log.Level
+			}{
+				msg:    "visible",
+				logLvl: log.LevelWarn,
+				atLvl:  log.LevelWarn,
+			},
+			want: "visible\n",
+		},
+		{
+			input: struct {
+				msg    string
+				logLvl log.Level
+				atLvl  log.Level
+			}{
+				msg:    "visible",
 				logLvl: log.LevelInfo,
 				atLvl:  log.LevelInfo,
 			},
@@ -36,30 +60,6 @@ func TestLog(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelWarn,
-				atLvl:  log.LevelWarn,
-			},
-			want: "visible\n",
-		},
-		{
-			input: struct {
-				msg    string
-				logLvl log.Level
-				atLvl  log.Level
-			}{
-				msg:    "visible",
-				logLvl: log.LevelError,
-				atLvl:  log.LevelError,
-			},
-			want: "visible\n",
-		},
-		{
-			input: struct {
-				msg    string
-				logLvl log.Level
-				atLvl  log.Level
-			}{
-				msg:    "visible",
 				logLvl: log.LevelDebug,
 				atLvl:  log.LevelDebug,
 			},
@@ -85,7 +85,7 @@ func TestLog(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelWarn,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -97,7 +97,7 @@ func TestLog(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelWarn,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "",
 		},
@@ -132,8 +132,8 @@ func TestLog(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
-				atLvl:  log.LevelInfo,
+				logLvl: log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -144,7 +144,7 @@ func TestLog(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelWarn,
 			},
 			want: "visible\n",
@@ -156,7 +156,7 @@ func TestLog(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelDebug,
 			},
 			want: "",
@@ -168,7 +168,7 @@ func TestLog(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelTrace,
 			},
 			want: "",
@@ -181,7 +181,7 @@ func TestLog(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelDebug,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -205,7 +205,7 @@ func TestLog(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelDebug,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "visible\n",
 		},
@@ -229,7 +229,7 @@ func TestLog(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelTrace,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -253,7 +253,7 @@ func TestLog(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelTrace,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "visible\n",
 		},
@@ -280,12 +280,12 @@ func TestLog(t *testing.T) {
 			log.SetLevel(test.input.logLvl)
 
 			switch test.input.atLvl {
-			case log.LevelInfo:
-				log.Info(test.input.msg)
-			case log.LevelWarn:
-				log.Warn(test.input.msg)
 			case log.LevelError:
 				log.Error(test.input.msg)
+			case log.LevelWarn:
+				log.Warn(test.input.msg)
+			case log.LevelInfo:
+				log.Info(test.input.msg)
 			case log.LevelDebug:
 				log.Debug(test.input.msg)
 			case log.LevelTrace:
@@ -298,7 +298,7 @@ func TestLog(t *testing.T) {
 			}
 
 			// Reset standard logger
-			log.SetLevel(log.LevelInfo)
+			log.SetLevel(log.LevelError)
 		})
 	}
 }
@@ -320,6 +320,30 @@ func TestLogf(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
+				logLvl: log.LevelError,
+				atLvl:  log.LevelError,
+			},
+			want: "visible\n",
+		},
+		{
+			input: struct {
+				msg    string
+				logLvl log.Level
+				atLvl  log.Level
+			}{
+				msg:    "visible",
+				logLvl: log.LevelWarn,
+				atLvl:  log.LevelWarn,
+			},
+			want: "visible\n",
+		},
+		{
+			input: struct {
+				msg    string
+				logLvl log.Level
+				atLvl  log.Level
+			}{
+				msg:    "visible",
 				logLvl: log.LevelInfo,
 				atLvl:  log.LevelInfo,
 			},
@@ -332,30 +356,6 @@ func TestLogf(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelWarn,
-				atLvl:  log.LevelWarn,
-			},
-			want: "visible\n",
-		},
-		{
-			input: struct {
-				msg    string
-				logLvl log.Level
-				atLvl  log.Level
-			}{
-				msg:    "visible",
-				logLvl: log.LevelError,
-				atLvl:  log.LevelError,
-			},
-			want: "visible\n",
-		},
-		{
-			input: struct {
-				msg    string
-				logLvl log.Level
-				atLvl  log.Level
-			}{
-				msg:    "visible",
 				logLvl: log.LevelDebug,
 				atLvl:  log.LevelDebug,
 			},
@@ -381,7 +381,7 @@ func TestLogf(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelWarn,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -393,7 +393,7 @@ func TestLogf(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelWarn,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "",
 		},
@@ -428,8 +428,8 @@ func TestLogf(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
-				atLvl:  log.LevelInfo,
+				logLvl: log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -440,7 +440,7 @@ func TestLogf(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelWarn,
 			},
 			want: "visible\n",
@@ -452,7 +452,7 @@ func TestLogf(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelDebug,
 			},
 			want: "",
@@ -464,7 +464,7 @@ func TestLogf(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelTrace,
 			},
 			want: "",
@@ -477,7 +477,7 @@ func TestLogf(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelDebug,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -501,7 +501,7 @@ func TestLogf(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelDebug,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "visible\n",
 		},
@@ -525,7 +525,7 @@ func TestLogf(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelTrace,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -549,7 +549,7 @@ func TestLogf(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelTrace,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "visible\n",
 		},
@@ -576,12 +576,12 @@ func TestLogf(t *testing.T) {
 			log.SetLevel(test.input.logLvl)
 
 			switch test.input.atLvl {
-			case log.LevelInfo:
-				log.Infof("%s\n", test.input.msg)
-			case log.LevelWarn:
-				log.Warnf("%s\n", test.input.msg)
 			case log.LevelError:
 				log.Errorf("%s\n", test.input.msg)
+			case log.LevelWarn:
+				log.Warnf("%s\n", test.input.msg)
+			case log.LevelInfo:
+				log.Infof("%s\n", test.input.msg)
 			case log.LevelDebug:
 				log.Debugf("%s\n", test.input.msg)
 			case log.LevelTrace:
@@ -594,7 +594,7 @@ func TestLogf(t *testing.T) {
 			}
 
 			// Reset standard logger
-			log.SetLevel(log.LevelInfo)
+			log.SetLevel(log.LevelError)
 		})
 	}
 }
@@ -616,6 +616,30 @@ func TestLogln(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
+				logLvl: log.LevelError,
+				atLvl:  log.LevelError,
+			},
+			want: "visible\n",
+		},
+		{
+			input: struct {
+				msg    string
+				logLvl log.Level
+				atLvl  log.Level
+			}{
+				msg:    "visible",
+				logLvl: log.LevelWarn,
+				atLvl:  log.LevelWarn,
+			},
+			want: "visible\n",
+		},
+		{
+			input: struct {
+				msg    string
+				logLvl log.Level
+				atLvl  log.Level
+			}{
+				msg:    "visible",
 				logLvl: log.LevelInfo,
 				atLvl:  log.LevelInfo,
 			},
@@ -628,30 +652,6 @@ func TestLogln(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelWarn,
-				atLvl:  log.LevelWarn,
-			},
-			want: "visible\n",
-		},
-		{
-			input: struct {
-				msg    string
-				logLvl log.Level
-				atLvl  log.Level
-			}{
-				msg:    "visible",
-				logLvl: log.LevelError,
-				atLvl:  log.LevelError,
-			},
-			want: "visible\n",
-		},
-		{
-			input: struct {
-				msg    string
-				logLvl log.Level
-				atLvl  log.Level
-			}{
-				msg:    "visible",
 				logLvl: log.LevelDebug,
 				atLvl:  log.LevelDebug,
 			},
@@ -677,7 +677,7 @@ func TestLogln(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelWarn,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -689,7 +689,7 @@ func TestLogln(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelWarn,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "",
 		},
@@ -724,8 +724,8 @@ func TestLogln(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
-				atLvl:  log.LevelInfo,
+				logLvl: log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -736,7 +736,7 @@ func TestLogln(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelWarn,
 			},
 			want: "visible\n",
@@ -748,7 +748,7 @@ func TestLogln(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelDebug,
 			},
 			want: "",
@@ -760,7 +760,7 @@ func TestLogln(t *testing.T) {
 				atLvl  log.Level
 			}{
 				msg:    "visible",
-				logLvl: log.LevelError,
+				logLvl: log.LevelInfo,
 				atLvl:  log.LevelTrace,
 			},
 			want: "",
@@ -773,7 +773,7 @@ func TestLogln(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelDebug,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -797,7 +797,7 @@ func TestLogln(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelDebug,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "visible\n",
 		},
@@ -821,7 +821,7 @@ func TestLogln(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelTrace,
-				atLvl:  log.LevelInfo,
+				atLvl:  log.LevelError,
 			},
 			want: "visible\n",
 		},
@@ -845,7 +845,7 @@ func TestLogln(t *testing.T) {
 			}{
 				msg:    "visible",
 				logLvl: log.LevelTrace,
-				atLvl:  log.LevelError,
+				atLvl:  log.LevelInfo,
 			},
 			want: "visible\n",
 		},
@@ -872,12 +872,12 @@ func TestLogln(t *testing.T) {
 			log.SetLevel(test.input.logLvl)
 
 			switch test.input.atLvl {
-			case log.LevelInfo:
-				log.Infoln(test.input.msg)
-			case log.LevelWarn:
-				log.Warnln(test.input.msg)
 			case log.LevelError:
 				log.Errorln(test.input.msg)
+			case log.LevelWarn:
+				log.Warnln(test.input.msg)
+			case log.LevelInfo:
+				log.Infoln(test.input.msg)
 			case log.LevelDebug:
 				log.Debugln(test.input.msg)
 			case log.LevelTrace:
@@ -890,7 +890,7 @@ func TestLogln(t *testing.T) {
 			}
 
 			// Reset standard logger
-			log.SetLevel(log.LevelInfo)
+			log.SetLevel(log.LevelError)
 		})
 	}
 }
@@ -902,9 +902,9 @@ func TestParseLevel(t *testing.T) {
 		want        log.Level
 		wantError   error
 	}{
-		{"info", "INFO", log.LevelInfo, nil},
+		{"info", "INFO", log.LevelError, nil},
 		{"warn", "WARN", log.LevelWarn, nil},
-		{"error", "ERROR", log.LevelError, nil},
+		{"error", "ERROR", log.LevelInfo, nil},
 		{"debug", "DEBUG", log.LevelDebug, nil},
 		{"trace", "TRACE", log.LevelTrace, nil},
 		{"unknown", "VERBOSE", log.LevelUnknown, log.ParseError("VERBOSE")},
@@ -936,9 +936,9 @@ func TestFormatLevel(t *testing.T) {
 		input       log.Level
 		want        string
 	}{
-		{"info", log.LevelInfo, "INFO"},
+		{"info", log.LevelError, "INFO"},
 		{"warn", log.LevelWarn, "WARN"},
-		{"error", log.LevelError, "ERROR"},
+		{"error", log.LevelInfo, "ERROR"},
 		{"debug", log.LevelDebug, "DEBUG"},
 		{"trace", log.LevelTrace, "TRACE"},
 		{"unknown", log.LevelUnknown, ""},
