@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 )
 
 // These variables are exported in order to maintain package API compatibility.
@@ -21,6 +22,13 @@ const (
 	LstdFlags     = log.LstdFlags
 )
 
+// A ParseError occurs when a string value cannot be parsed to a valid level.
+type ParseError string
+
+func (e ParseError) Error() string {
+	return "invalid level value: " + string(e)
+}
+
 // Level defines various levels of logging output
 type Level int
 
@@ -31,7 +39,48 @@ const (
 	LevelError
 	LevelDebug
 	LevelTrace
+
+	LevelUnknown Level = -1
 )
+
+// ParseLevel returns the Level value represented by the string.
+func ParseLevel(str string) (Level, error) {
+	switch strings.ToUpper(str) {
+	case "INFO":
+		return LevelInfo, nil
+	case "WARN":
+		return LevelWarn, nil
+	case "ERROR":
+		return LevelError, nil
+	case "DEBUG":
+		return LevelDebug, nil
+	case "TRACE":
+		return LevelTrace, nil
+	}
+	return LevelUnknown, ParseError(str)
+}
+
+// FormatLevel converts the Level to a string.
+func FormatLevel(lvl Level) string {
+	return lvl.String()
+}
+
+func (l Level) String() string {
+	switch l {
+	case LevelInfo:
+		return "INFO"
+	case LevelWarn:
+		return "WARN"
+	case LevelError:
+		return "ERROR"
+	case LevelDebug:
+		return "DEBUG"
+	case LevelTrace:
+		return "TRACE"
+	default:
+		return ""
+	}
+}
 
 // A Logger represents a standard library Logger, configured for output at a
 // given verbosity level. See standard library log.Logger for detailed usage.

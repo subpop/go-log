@@ -894,3 +894,63 @@ func TestLogln(t *testing.T) {
 		})
 	}
 }
+
+func TestParseLevel(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        log.Level
+		wantError   error
+	}{
+		{"info", "INFO", log.LevelInfo, nil},
+		{"warn", "WARN", log.LevelWarn, nil},
+		{"error", "ERROR", log.LevelError, nil},
+		{"debug", "DEBUG", log.LevelDebug, nil},
+		{"trace", "TRACE", log.LevelTrace, nil},
+		{"unknown", "VERBOSE", log.LevelUnknown, log.ParseError("VERBOSE")},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			got, err := log.ParseLevel(test.input)
+
+			if test.wantError != nil {
+				if err != test.wantError {
+					t.Errorf("%v != %v", err, test.wantError)
+				}
+			} else {
+				if err != nil {
+					t.Fatal(err)
+				}
+				if got != test.want {
+					t.Errorf("%v != %v", got, test.want)
+				}
+			}
+		})
+	}
+}
+
+func TestFormatLevel(t *testing.T) {
+	tests := []struct {
+		description string
+		input       log.Level
+		want        string
+	}{
+		{"info", log.LevelInfo, "INFO"},
+		{"warn", log.LevelWarn, "WARN"},
+		{"error", log.LevelError, "ERROR"},
+		{"debug", log.LevelDebug, "DEBUG"},
+		{"trace", log.LevelTrace, "TRACE"},
+		{"unknown", log.LevelUnknown, ""},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			got := log.FormatLevel(test.input)
+
+			if got != test.want {
+				t.Errorf("%+v != %+v", got, test.want)
+			}
+		})
+	}
+}
