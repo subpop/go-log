@@ -1,3 +1,4 @@
+[![builds.sr.ht status](https://builds.sr.ht/~spc/go-log.svg)](https://builds.sr.ht/~spc/go-log?)
 # package log
 
 Package log implements a simple level logging package that maintains API
