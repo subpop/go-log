@@ -1,3 +1,4 @@
+[![PkgGoDev](https://pkg.go.dev/badge/git.sr.ht/~spc/go-log)](https://pkg.go.dev/git.sr.ht/~spc/go-log)
 [![builds.sr.ht status](https://builds.sr.ht/~spc/go-log.svg)](https://builds.sr.ht/~spc/go-log?)
 # package log
 
