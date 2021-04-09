@@ -1,5 +1,7 @@
 [![PkgGoDev](https://pkg.go.dev/badge/git.sr.ht/~spc/go-log)](https://pkg.go.dev/git.sr.ht/~spc/go-log)
 [![builds.sr.ht status](https://builds.sr.ht/~spc/go-log.svg)](https://builds.sr.ht/~spc/go-log?)
+[![Go Report Card](https://goreportcard.com/badge/github.com/subpop/go-log)](https://goreportcard.com/report/github.com/subpop/go-log)
+
 # package log
 
 Package log implements a simple level logging package that maintains API
