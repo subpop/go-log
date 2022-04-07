@@ -954,3 +954,313 @@ func TestFormatLevel(t *testing.T) {
 		})
 	}
 }
+
+func TestPrint(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text\n",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			log.Print(test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestPrintf(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text\n",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			log.Printf("%v", test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestPrintln(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text\n",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			log.Println(test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestPanic(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			defer func() {
+				if r := recover(); r != nil {
+					switch got := r.(type) {
+					case string:
+						if got != test.want {
+							t.Errorf("%#v != %#v", got, test.want)
+						}
+					default:
+						t.Errorf("invalid type: %T", got)
+					}
+				}
+			}()
+
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			log.Panic(test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestPanicf(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			defer func() {
+				if r := recover(); r != nil {
+					switch got := r.(type) {
+					case string:
+						if got != test.want {
+							t.Errorf("%#v != %#v", got, test.want)
+						}
+					default:
+						t.Errorf("invalid type: %T", got)
+					}
+				}
+			}()
+
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			log.Panicf("%v", test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestPanicln(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text\n",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			defer func() {
+				if r := recover(); r != nil {
+					switch got := r.(type) {
+					case string:
+						if got != test.want {
+							t.Errorf("%#v != %#v", got, test.want)
+						}
+					default:
+						t.Errorf("invalid type: %T", got)
+					}
+				}
+			}()
+
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			log.Panicln(test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestOutput(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{
+			input: "text",
+			want:  "text\n",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			var writer strings.Builder
+			log.SetOutput(&writer)
+			log.SetFlags(0)
+
+			_ = log.Output(0, test.input)
+
+			got := writer.String()
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestFlags(t *testing.T) {
+	tests := []struct {
+		description string
+		input       int
+		want        int
+	}{
+		{input: log.Ldate | log.Ltime, want: 3},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			log.SetFlags(test.input)
+			got := log.Flags()
+
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestPrefix(t *testing.T) {
+	tests := []struct {
+		description string
+		input       string
+		want        string
+	}{
+		{input: "prefix", want: "prefix"},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			log.SetPrefix(test.input)
+
+			got := log.Prefix()
+
+			// reset standard logger
+			log.SetPrefix("")
+
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
+
+func TestCurrentLevel(t *testing.T) {
+	tests := []struct {
+		description string
+		input       log.Level
+		want        log.Level
+	}{
+		{input: log.LevelError, want: log.LevelError},
+		{input: log.LevelWarn, want: log.LevelWarn},
+		{input: log.LevelInfo, want: log.LevelInfo},
+		{input: log.LevelDebug, want: log.LevelDebug},
+		{input: log.LevelTrace, want: log.LevelTrace},
+	}
+
+	for _, test := range tests {
+		t.Run(test.description, func(t *testing.T) {
+			log.SetLevel(test.input)
+
+			got := log.CurrentLevel()
+
+			// reset standard logger
+			log.SetLevel(log.LevelError)
+
+			if got != test.want {
+				t.Errorf("%#v != %#v", got, test.want)
+			}
+		})
+	}
+}
