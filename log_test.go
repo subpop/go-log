@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	log "git.sr.ht/~spc/go-log"
+	log "github.com/subpop/go-log"
 )
 
 func TestLog(t *testing.T) {

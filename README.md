@@ -1,5 +1,4 @@
 [![godocs.io](http://godocs.io/git.sr.ht/~spc/go-log?status.svg)](http://godocs.io/git.sr.ht/~spc/go-log)
-[![builds.sr.ht status](https://builds.sr.ht/~spc/go-log.svg)](https://builds.sr.ht/~spc/go-log?)
 [![Go Report Card](https://goreportcard.com/badge/github.com/subpop/go-log)](https://goreportcard.com/report/github.com/subpop/go-log)
 
 # ⚠️ Deprecated: use `log/slog` instead ⚠️
@@ -15,7 +14,7 @@ is configured at or below a given level. For example:
 ```
 package main
 
-import "git.sr.ht/~spc/go-log"
+import "github.com/subpop/go-log"
 
 func main() {
     log.SetLevel(log.LevelWarn)

@@ -1,4 +1,4 @@
 // Deprecated: use log/slog
-module git.sr.ht/~spc/go-log
+module github.com/subpop/go-log
 
 go 1.13
