@@ -2,6 +2,8 @@
 [![builds.sr.ht status](https://builds.sr.ht/~spc/go-log.svg)](https://builds.sr.ht/~spc/go-log?)
 [![Go Report Card](https://goreportcard.com/badge/github.com/subpop/go-log)](https://goreportcard.com/report/github.com/subpop/go-log)
 
+# ⚠️ Deprecated: use `log/slog` instead ⚠️
+
 # package log
 
 Package log implements a simple level logging package that maintains API
