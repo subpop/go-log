@@ -1,4 +1,4 @@
-[![godocs.io](http://godocs.io/git.sr.ht/~spc/go-log?status.svg)](http://godocs.io/git.sr.ht/~spc/go-log)
+[![godocs.io](http://godocs.io/github.com/subpop/go-log?status.svg)](http://godocs.io/github.com/subpop/go-log)
 [![Go Report Card](https://goreportcard.com/badge/github.com/subpop/go-log)](https://goreportcard.com/report/github.com/subpop/go-log)
 
 # ⚠️ Deprecated: use `log/slog` instead ⚠️
