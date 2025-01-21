@@ -19,8 +19,11 @@ import (
 // The prefix is followed by a colon only when Llongfile or Lshortfile
 // is specified.
 // For example, flags Ldate | Ltime (or LstdFlags) produce,
+//
 //	2009/01/23 01:23:23 message
+//
 // while flags Ldate | Ltime | Lmicroseconds | Llongfile produce,
+//
 //	2009/01/23 01:23:23.123123 /a/b/c/d.go:23: message
 //
 // These variables are exported in order to maintain package API compatibility.
@@ -117,7 +120,7 @@ var std = New(os.Stderr, "", log.LstdFlags, LevelError)
 // handled in the manner of fmt.Print.
 func (l *Logger) Error(v ...interface{}) {
 	if l.Level >= LevelError {
-		l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Logger.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -125,7 +128,7 @@ func (l *Logger) Error(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Errorf(format string, v ...interface{}) {
 	if l.Level >= LevelError {
-		l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -133,7 +136,7 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Errorln(v ...interface{}) {
 	if l.Level >= LevelError {
-		l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Logger.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -141,7 +144,7 @@ func (l *Logger) Errorln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Warn(v ...interface{}) {
 	if l.Level >= LevelWarn {
-		l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Logger.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -149,7 +152,7 @@ func (l *Logger) Warn(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Warnf(format string, v ...interface{}) {
 	if l.Level >= LevelWarn {
-		l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -157,7 +160,7 @@ func (l *Logger) Warnf(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Warnln(v ...interface{}) {
 	if l.Level >= LevelWarn {
-		l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Logger.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -165,7 +168,7 @@ func (l *Logger) Warnln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Info(v ...interface{}) {
 	if l.Level >= LevelInfo {
-		l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Logger.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -173,7 +176,7 @@ func (l *Logger) Info(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Infof(format string, v ...interface{}) {
 	if l.Level >= LevelInfo {
-		l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -181,7 +184,7 @@ func (l *Logger) Infof(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Infoln(v ...interface{}) {
 	if l.Level >= LevelInfo {
-		l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Logger.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -189,7 +192,7 @@ func (l *Logger) Infoln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Debug(v ...interface{}) {
 	if l.Level >= LevelDebug {
-		l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Logger.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -197,7 +200,7 @@ func (l *Logger) Debug(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Debugf(format string, v ...interface{}) {
 	if l.Level >= LevelDebug {
-		l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -205,7 +208,7 @@ func (l *Logger) Debugf(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Debugln(v ...interface{}) {
 	if l.Level >= LevelDebug {
-		l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Logger.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -213,7 +216,7 @@ func (l *Logger) Debugln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Trace(v ...interface{}) {
 	if l.Level >= LevelTrace {
-		l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Logger.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -221,7 +224,7 @@ func (l *Logger) Trace(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Tracef(format string, v ...interface{}) {
 	if l.Level >= LevelTrace {
-		l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -229,7 +232,7 @@ func (l *Logger) Tracef(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Traceln(v ...interface{}) {
 	if l.Level >= LevelTrace {
-		l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Logger.Output(3, fmt.Sprintln(v...))
 	}
 }
 
