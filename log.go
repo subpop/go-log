@@ -120,7 +120,7 @@ var std = New(os.Stderr, "", log.LstdFlags, LevelError)
 // handled in the manner of fmt.Print.
 func (l *Logger) Error(v ...interface{}) {
 	if l.Level >= LevelError {
-		_ = l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -128,7 +128,7 @@ func (l *Logger) Error(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Errorf(format string, v ...interface{}) {
 	if l.Level >= LevelError {
-		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -136,7 +136,7 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Errorln(v ...interface{}) {
 	if l.Level >= LevelError {
-		_ = l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Output(3, fmt.Sprintln(v...))
 	}
 }
 
