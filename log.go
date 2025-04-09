@@ -144,7 +144,7 @@ func (l *Logger) Errorln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Warn(v ...interface{}) {
 	if l.Level >= LevelWarn {
-		_ = l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -152,7 +152,7 @@ func (l *Logger) Warn(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Warnf(format string, v ...interface{}) {
 	if l.Level >= LevelWarn {
-		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -160,7 +160,7 @@ func (l *Logger) Warnf(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Warnln(v ...interface{}) {
 	if l.Level >= LevelWarn {
-		_ = l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -168,7 +168,7 @@ func (l *Logger) Warnln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Info(v ...interface{}) {
 	if l.Level >= LevelInfo {
-		_ = l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -176,7 +176,7 @@ func (l *Logger) Info(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Infof(format string, v ...interface{}) {
 	if l.Level >= LevelInfo {
-		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -184,7 +184,7 @@ func (l *Logger) Infof(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Infoln(v ...interface{}) {
 	if l.Level >= LevelInfo {
-		_ = l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -192,7 +192,7 @@ func (l *Logger) Infoln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Debug(v ...interface{}) {
 	if l.Level >= LevelDebug {
-		_ = l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -200,7 +200,7 @@ func (l *Logger) Debug(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Debugf(format string, v ...interface{}) {
 	if l.Level >= LevelDebug {
-		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -208,7 +208,7 @@ func (l *Logger) Debugf(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Debugln(v ...interface{}) {
 	if l.Level >= LevelDebug {
-		_ = l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Output(3, fmt.Sprintln(v...))
 	}
 }
 
@@ -216,7 +216,7 @@ func (l *Logger) Debugln(v ...interface{}) {
 // handled in the manner of fmt.Print.
 func (l *Logger) Trace(v ...interface{}) {
 	if l.Level >= LevelTrace {
-		_ = l.Logger.Output(3, fmt.Sprint(v...))
+		_ = l.Output(3, fmt.Sprint(v...))
 	}
 }
 
@@ -224,7 +224,7 @@ func (l *Logger) Trace(v ...interface{}) {
 // handled in the manner of fmt.Printf.
 func (l *Logger) Tracef(format string, v ...interface{}) {
 	if l.Level >= LevelTrace {
-		_ = l.Logger.Output(3, fmt.Sprintf(format, v...))
+		_ = l.Output(3, fmt.Sprintf(format, v...))
 	}
 }
 
@@ -232,13 +232,13 @@ func (l *Logger) Tracef(format string, v ...interface{}) {
 // handled in the manner of fmt.Println.
 func (l *Logger) Traceln(v ...interface{}) {
 	if l.Level >= LevelTrace {
-		_ = l.Logger.Output(3, fmt.Sprintln(v...))
+		_ = l.Output(3, fmt.Sprintln(v...))
 	}
 }
 
 // SetOutput sets the output destination for the standard logger.
 func SetOutput(w io.Writer) {
-	std.Logger.SetOutput(w)
+	std.SetOutput(w)
 }
 
 // Flags returns the output flags for the standard logger.
@@ -248,22 +248,22 @@ func Flags() int {
 
 // SetFlags sets the output flags for the standard logger.
 func SetFlags(flag int) {
-	std.Logger.SetFlags(flag)
+	std.SetFlags(flag)
 }
 
 // Prefix returns the output prefix for the standard logger.
 func Prefix() string {
-	return std.Logger.Prefix()
+	return std.Prefix()
 }
 
 // SetPrefix sets the output prefix for the standard logger.
 func SetPrefix(prefix string) {
-	std.Logger.SetPrefix(prefix)
+	std.SetPrefix(prefix)
 }
 
 // Writer returns the output destination for the standard logger.
 func Writer() io.Writer {
-	return std.Logger.Writer()
+	return std.Writer()
 }
 
 // CurrentLevel returns the output level for the standard logger.
@@ -427,5 +427,5 @@ func Panicln(v ...interface{}) {
 // if Llongfile or Lshortfile is set; a value of 1 will print the details
 // for the caller of Output.
 func Output(calldepth int, s string) error {
-	return std.Logger.Output(calldepth+2, s)
+	return std.Output(calldepth+2, s)
 }
